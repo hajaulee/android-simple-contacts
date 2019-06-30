@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"> 
+
+<TextView
+    android:id="@+id/name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_centerVertical="true"
+    android:paddingStart="8dp"
+    android:paddingEnd="12dp"
+    android:maxWidth="320dp"
+    android:textSize="38sp"
+    android:textStyle="bold"
+    android:textColor="@color/dark"
+    android:text="@string/name"/>
+<TextView
+    android:id="@+id/num"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/name"
+    android:layout_marginTop="15dp"
+    android:textColor="@color/colorPrimary"
+    android:paddingStart="8dp"
+    android:paddingEnd="12dp"
+    android:textSize="24sp"
+    android:text="@string/num"/>
+
+<ImageButton
+    android:id="@+id/call_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_centerVertical="true"
+    android:layout_marginEnd="5dp"
+    android:src="@drawable/ic_call_36"
+    android:contentDescription="@string/des"
+    android:background="@color/none"/>
+
+<ImageButton
+    android:id="@+id/message_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_marginEnd="10dp"
+    android:layout_toStartOf="@id/call_btn"
+    android:src="@drawable/ic_message_36"
+    android:contentDescription="@string/des"
+    android:background="@color/none"/>
+
+</RelativeLayout>

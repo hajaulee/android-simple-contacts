@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Danh bạ</string>
+    <string name="action_settings">Settings</string>
+    <string name="name">Nguyen Thi Anh i i i i i</string>
+    <string name="num">093456787654</string>
+    <string name="des">Nothing</string>
+    <string name="name_hint">Nhập tên</string>
+    <string name="num_hint">Nhập số điện thoại</string>
+    <string name="cancel">Thôi</string>
+    <string name="save">Lưu lại</string>
+    <string name="edit">Sửa</string>
+    <string name="delete"><big>(✘)</big>  Xóa</string>
+</resources>
