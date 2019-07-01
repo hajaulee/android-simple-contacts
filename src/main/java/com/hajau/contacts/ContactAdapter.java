@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.text.Html;
@@ -135,6 +136,7 @@ public class ContactAdapter extends BaseAdapter implements ListAdapter {
                             ((MainActivity) context).scrollToContact(name);
                         }
                     });
+                    snackbar.setActionTextColor(Color.WHITE);
 
                     snackbar.show();
                 } else {

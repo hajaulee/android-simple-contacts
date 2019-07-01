@@ -3,9 +3,7 @@ package com.hajau.contacts;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -64,8 +62,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        updateContactList();
+        if (checkIfAlreadyHavePermission(Manifest.permission.READ_CONTACTS)) {
+            updateContactList();
+        }
     }
 
 
@@ -81,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
         lView.setAdapter(adapter);
     }
 
-    public void scrollToContact(String name){
+    public void scrollToContact(String name) {
         ListView lView = findViewById(R.id.contact_lv);
         for (int i = 0; i < contactList.size(); i++) {
-            if (contactList.get(i)[0].equals(name)){
+            if (contactList.get(i)[0].equals(name)) {
                 lView.smoothScrollToPosition(i);
                 lView.setSelection(i);
                 return;
@@ -129,14 +128,13 @@ public class MainActivity extends AppCompatActivity {
         if (cur != null) {
             cur.close();
         }
-        Collections.sort(list,new Comparator<String[]>() {
+        Collections.sort(list, new Comparator<String[]>() {
             public int compare(String[] strings, String[] otherStrings) {
                 return strings[0].toLowerCase().compareTo(otherStrings[0].toLowerCase());
             }
         });
         return list;
     }
-
 
 
     private boolean checkIfAlreadyHavePermission(String permission) {
@@ -156,8 +154,11 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 101) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //granted
-                Snackbar.make(fab, "Cảm ơn bạn đã cấp quyền!", Snackbar.LENGTH_LONG)
+                Snackbar.make(fab, "Cảm ơn bạn đã cấp quyền!", Snackbar.LENGTH_SHORT)
                         .setAction("", null).show();
+                if (checkIfAlreadyHavePermission(Manifest.permission.READ_CONTACTS)) {
+                    updateContactList();
+                }
             } else {
                 //not granted
                 Snackbar.make(fab, "Xin mở lại ứng dụng", Snackbar.LENGTH_LONG)
@@ -186,7 +187,8 @@ public class MainActivity extends AppCompatActivity {
                         // sign in the user ...
                         EditText newName = view.findViewById(R.id.new_name);
                         EditText newPhone = view.findViewById(R.id.new_num);
-                        ContactUtil.addContact(view.getContext(), newName.getText().toString(), newPhone.getText().toString());
+                        ContactUtil.addContact(view.getContext(), newName.getText().toString(),
+                                newPhone.getText().toString());
                         updateContactList();
                         scrollToContact(newName.getText().toString());
                     }
