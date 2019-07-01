@@ -1,6 +1,11 @@
-# Simple contact book for Android
+#  ![app icon](./src/main/res/mipmap-mdpi/ic_launcher.png) Danh bạ
 
-## Work on Android Lolipop 5.0 (or upper)
 
-## Capture picture
 
+Simple contact book forAndroid
+
+![screenshots of app](./cap1.png)
+![screenshots of app](./cap2.png)
+
+## Require
+* Android Lolipop 5.0 (or upper)
