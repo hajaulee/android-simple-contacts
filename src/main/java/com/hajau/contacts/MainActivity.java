@@ -41,15 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
-            for (String s : necessaryPermission) {
-                if (!checkIfAlreadyHavePermission(s)) {
-                    requestForSpecificPermission(s);
-                }
-            }
-        }
-
-
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+            for (String s : necessaryPermission) {
+                if (!checkIfAlreadyHavePermission(s)) {
+                    requestForSpecificPermission(necessaryPermission);
+                }
+            }
+        }
         if (checkIfAlreadyHavePermission(Manifest.permission.READ_CONTACTS)) {
             updateContactList();
         }
@@ -142,9 +140,9 @@ public class MainActivity extends AppCompatActivity {
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
-    private void requestForSpecificPermission(String permission) {
+    private void requestForSpecificPermission(String[] permissions) {
         ActivityCompat.requestPermissions(this,
-                new String[]{permission},
+                permissions,
                 101);
     }
 
@@ -152,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
             @NonNull int[] grantResults) {
         if (requestCode == 101) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //granted
                 Snackbar.make(fab, "Cảm ơn bạn đã cấp quyền!", Snackbar.LENGTH_SHORT)
                         .setAction("", null).show();

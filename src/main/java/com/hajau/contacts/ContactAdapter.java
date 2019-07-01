@@ -85,7 +85,7 @@ public class ContactAdapter extends BaseAdapter implements ListAdapter {
                 //do something
                 Uri sms_uri = Uri.parse("smsto:" + numContact.getText());
                 Intent sms_intent = new Intent(Intent.ACTION_SENDTO, sms_uri);
-                sms_intent.putExtra("sms_body", "OK");
+                sms_intent.putExtra("sms_body", "");
                 context.startActivity(sms_intent);
             }
         });
