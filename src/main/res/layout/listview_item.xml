@@ -12,7 +12,7 @@
     android:paddingStart="8dp"
     android:paddingEnd="12dp"
     android:maxWidth="320dp"
-    android:textSize="38sp"
+    android:textSize="32sp"
     android:textStyle="bold"
     android:textColor="@color/dark"
     android:text="@string/name"/>
@@ -34,7 +34,7 @@
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
     android:layout_centerVertical="true"
-    android:layout_marginEnd="5dp"
+    android:layout_marginEnd="15dp"
     android:src="@drawable/ic_call_36"
     android:contentDescription="@string/des"
     android:background="@color/none"/>
@@ -44,7 +44,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
-    android:layout_marginEnd="10dp"
+    android:layout_marginEnd="15dp"
     android:layout_toStartOf="@id/call_btn"
     android:src="@drawable/ic_message_36"
     android:contentDescription="@string/des"
