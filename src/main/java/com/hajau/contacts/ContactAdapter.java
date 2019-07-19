@@ -25,6 +25,7 @@ public class ContactAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String[]> list;
     private Context context;
     private static final String TAG = "ContactAdapter";
+    private AlertDialog editContactDialog;
 
 
     public ContactAdapter(ArrayList<String[]> list, Context context) {
@@ -145,6 +146,7 @@ public class ContactAdapter extends BaseAdapter implements ListAdapter {
                             Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
+                editContactDialog.dismiss();
             }
         });
         builder.setView(view)
@@ -158,7 +160,7 @@ public class ContactAdapter extends BaseAdapter implements ListAdapter {
                                 editPhone.getText().toString());
                         ((MainActivity) context).updateContactList();
                         ((MainActivity) context).scrollToContact(name);
-
+                        editContactDialog.dismiss();
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -166,7 +168,8 @@ public class ContactAdapter extends BaseAdapter implements ListAdapter {
                         //
                     }
                 });
-        builder.create().show();
+        editContactDialog = builder.create();
+        editContactDialog.show();
     }
 
 

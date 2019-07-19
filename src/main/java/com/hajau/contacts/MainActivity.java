@@ -1,7 +1,6 @@
 package com.hajau.contacts;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
@@ -174,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @SuppressLint("InflateParams")
     public void showAddNewContactDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Get the layout inflater
@@ -189,9 +187,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // sign in the user ...
-                        EditText newName = view.findViewById(R.id.new_name);
-                        EditText newPhone = view.findViewById(R.id.new_num);
-                        ContactUtil.addContact(view.getContext(), newName.getText().toString(),
+                        final EditText newName = view.findViewById(R.id.new_name);
+                        final EditText newPhone = view.findViewById(R.id.new_num);
+                        ContactUtil.addContact(view.getContext(),
+                                newName.getText().toString(),
                                 newPhone.getText().toString());
                         updateContactList();
                         scrollToContact(newName.getText().toString());
@@ -202,7 +201,8 @@ public class MainActivity extends AppCompatActivity {
                         //
                     }
                 });
-        builder.create().show();
+        AlertDialog addNewContactDialog = builder.create();
+        addNewContactDialog.show();
     }
 
     @Override
