@@ -20,6 +20,8 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ContactAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String[]> list;
@@ -146,7 +148,17 @@ public class ContactAdapter extends BaseAdapter implements ListAdapter {
                             Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
-                editContactDialog.dismiss();
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        ((MainActivity)context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                editContactDialog.dismiss();
+                            }
+                        });
+                    }
+                }, 1000);
             }
         });
         builder.setView(view)
