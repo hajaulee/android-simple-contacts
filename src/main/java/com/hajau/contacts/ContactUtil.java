@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -58,34 +57,27 @@ public class ContactUtil {
     }
 
     static boolean deleteContact(Context ctx, String phone, String name) {
-        Uri contactUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
-                Uri.encode(phone));
-        Cursor cur = ctx.getContentResolver().query(contactUri, null, null, null, null);
-        if (cur != null) {
-            try {
-                if (cur.moveToFirst()) {
-                    do {
-                        Toast.makeText(ctx, cur.getString(cur.getColumnIndex(
-                                ContactsContract.PhoneLookup.DISPLAY_NAME)) + '/' + cur.getString(cur.getColumnIndex(
-                                ContactsContract.PhoneLookup.NUMBER)), Toast.LENGTH_LONG).show();
+        Uri contactUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phone));
+        try (Cursor cur = ctx.getContentResolver().query(contactUri, null, null, null, null)) {
+            if (cur != null && cur.moveToFirst()) {
+                do {
+                    if (cur.getString(
+                            cur.getColumnIndex(
+                                    ContactsContract.PhoneLookup.DISPLAY_NAME)).equalsIgnoreCase(
+                            name)) {
+                        String lookupKey = cur.getString(
+                                cur.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
+                        Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI,
+                                lookupKey);
+                        ctx.getContentResolver().delete(uri, null, null);
+                        return true;
+                    }
 
-                        if (cur.getString(cur.getColumnIndex(
-                                ContactsContract.PhoneLookup.DISPLAY_NAME)).equalsIgnoreCase(
-                                name)) {
-                            String lookupKey = cur.getString(
-                                    cur.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
-                            Uri uri = Uri.withAppendedPath(
-                                    ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey);
-                            ctx.getContentResolver().delete(uri, null, null);
-                            return true;
-                        }
-
-                    } while (cur.moveToNext());
-                }
-
-            } finally {
-                cur.close();
+                } while (cur.moveToNext());
             }
+
+        } catch (Exception ignored) {
+
         }
         return false;
     }
