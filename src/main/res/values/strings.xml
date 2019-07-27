@@ -10,5 +10,5 @@
     <string name="save">Lưu lại</string>
     <string name="edit">Sửa</string>
     <string name="delete"><big>(✘)</big>  Xóa</string>
-    <string name="update">Update</string>
+    <string name="action_update">Update</string>
 </resources>
