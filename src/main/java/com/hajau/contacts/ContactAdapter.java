@@ -123,7 +123,7 @@ public class ContactAdapter extends BaseAdapter implements ListAdapter {
 
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Đang xóa số " +  name, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "Đang xóa số " +  name, Snackbar.LENGTH_LONG).show();
                 boolean success = ContactUtil.deleteContact(context, name, phone);
                 if (success) {
                     ((MainActivity) context).updateContactList();
