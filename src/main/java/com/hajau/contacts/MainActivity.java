@@ -4,8 +4,10 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -24,9 +26,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -133,7 +137,10 @@ public class MainActivity extends AppCompatActivity {
         }
         Collections.sort(list, new Comparator<String[]>() {
             public int compare(String[] strings, String[] otherStrings) {
-                return strings[0].toLowerCase().compareTo(otherStrings[0].toLowerCase());
+                Collator collator = Collator.getInstance(Locale.forLanguageTag("vi_VN"));
+                collator.setStrength(Collator.PRIMARY);
+                return collator.compare(strings[0], otherStrings[0]);
+//                return strings[0].compareToIgnoreCase(otherStrings[0]);
             }
         });
         return list;
@@ -222,6 +229,12 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_update) {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(
+                            "https://github.com/hajaulee/android-simple-contacts/raw/master"
+                                    + "/release/app-release.apk"));
+            startActivity(browserIntent);
         }
 
         return super.onOptionsItemSelected(item);
