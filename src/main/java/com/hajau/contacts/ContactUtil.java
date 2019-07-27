@@ -72,7 +72,7 @@ public class ContactUtil {
                                 cur.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
                         Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI,
                                 lookupKey);
-                        ctx.getContentResolver().delete(contactUri, null, null);
+                        ctx.getContentResolver().delete(uri, null, null);
                         return true;
                     }
 
