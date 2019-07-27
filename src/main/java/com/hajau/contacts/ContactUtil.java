@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -56,15 +57,14 @@ public class ContactUtil {
         }
     }
 
-    static boolean deleteContact(Context ctx, String phone, String name) {
+    static boolean deleteContact(Context ctx, String name, String phone) {
         Uri contactUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phone));
-        try (Cursor cur = ctx.getContentResolver().query(contactUri, null, null, null, null)) {
+        Cursor cur = ctx.getContentResolver().query(contactUri, null, null, null, null);
+        try {
             if (cur != null && cur.moveToFirst()) {
                 do {
-                    if (cur.getString(
-                            cur.getColumnIndex(
-                                    ContactsContract.PhoneLookup.DISPLAY_NAME)).equalsIgnoreCase(
-                            name)) {
+                    if (cur.getString(cur.getColumnIndex(
+                            ContactsContract.PhoneLookup.DISPLAY_NAME)).equalsIgnoreCase(name)) {
                         String lookupKey = cur.getString(
                                 cur.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
                         Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI,
@@ -74,10 +74,15 @@ public class ContactUtil {
                     }
 
                 } while (cur.moveToNext());
+            }else{
+                Log.e(TAG, "NUll");
             }
 
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        } finally {
+            assert cur != null;
+            cur.close();
         }
         return false;
     }
