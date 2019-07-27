@@ -137,10 +137,8 @@ public class MainActivity extends AppCompatActivity {
         }
         Collections.sort(list, new Comparator<String[]>() {
             public int compare(String[] strings, String[] otherStrings) {
-                Collator collator = Collator.getInstance(Locale.forLanguageTag("vi_VN"));
-                collator.setStrength(Collator.PRIMARY);
+                Collator collator = Collator.getInstance(new Locale("vi-VN"));
                 return collator.compare(strings[0], otherStrings[0]);
-//                return strings[0].compareToIgnoreCase(otherStrings[0]);
             }
         });
         return list;
