@@ -65,15 +65,13 @@ public class ContactUtil {
             try {
                 if (cur.moveToFirst()) {
                     do {
-                        Log.i("NNNNNN", cur.getString(cur.getColumnIndex(
+                        Toast.makeText(ctx, cur.getString(cur.getColumnIndex(
                                 ContactsContract.PhoneLookup.DISPLAY_NAME)) + '/' + cur.getString(cur.getColumnIndex(
-                                ContactsContract.PhoneLookup.NUMBER)));
+                                ContactsContract.PhoneLookup.NUMBER)), Toast.LENGTH_LONG).show();
 
                         if (cur.getString(cur.getColumnIndex(
                                 ContactsContract.PhoneLookup.DISPLAY_NAME)).equalsIgnoreCase(
-                                name) && cur.getString(cur.getColumnIndex(
-                                ContactsContract.PhoneLookup.NUMBER)).equalsIgnoreCase(
-                                phone)) {
+                                name)) {
                             String lookupKey = cur.getString(
                                     cur.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
                             Uri uri = Uri.withAppendedPath(
