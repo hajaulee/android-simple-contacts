@@ -123,6 +123,7 @@ public class ContactAdapter extends BaseAdapter implements ListAdapter {
 
             @Override
             public void onClick(View view) {
+                Snackbar.make(view, "Đang xóa số " +  name, Snackbar.LENGTH_SHORT).show();
                 boolean success = ContactUtil.deleteContact(context, name, phone);
                 if (success) {
                     ((MainActivity) context).updateContactList();
@@ -166,7 +167,8 @@ public class ContactAdapter extends BaseAdapter implements ListAdapter {
                 .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // sign in the user ...
+                        Snackbar.make(view, "Đang sửa số " +  name, Snackbar.LENGTH_SHORT).show();
+
                         ContactUtil.deleteContact(context, name, phone);
                         ContactUtil.addContact(context, editName.getText().toString(),
                                 editPhone.getText().toString());
