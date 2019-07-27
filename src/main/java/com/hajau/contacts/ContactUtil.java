@@ -62,6 +62,10 @@ public class ContactUtil {
         try {
             if (cur != null && cur.moveToFirst()) {
                 do {
+                    Toast.makeText(ctx, cur.getString(cur.getColumnIndex(
+                            ContactsContract.PhoneLookup.DISPLAY_NAME)) +
+                            '/' + cur.getString(cur.getColumnIndex(
+                            ContactsContract.PhoneLookup.NUMBER)), Toast.LENGTH_LONG).show();
                     if (cur.getString(cur.getColumnIndex(
                             ContactsContract.PhoneLookup.DISPLAY_NAME)).equalsIgnoreCase(name)) {
                         String lookupKey = cur.getString(
