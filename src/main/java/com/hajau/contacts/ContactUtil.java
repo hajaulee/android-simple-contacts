@@ -58,23 +58,9 @@ public class ContactUtil {
         }
     }
 
-    static private Long getID(Context context, String number) {
-
-        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
-                Uri.encode(number));
-        Cursor c = context.getContentResolver().query(uri,
-                new String[]{ContactsContract.PhoneLookup._ID}, null, null, null);
-        if (c != null) {
-            while (c.moveToNext()) {
-                return c.getLong(c.getColumnIndex(ContactsContract.PhoneLookup._ID));
-            }
-        }
-        return null;
-    }
-
     static boolean deleteContact(Context ctx, String name, String phone) {
         Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
-                Uri.encode(phone));
+                Uri.encode(name));
         Cursor c = ctx.getContentResolver().query(uri,
                 new String[]{ContactsContract.PhoneLookup._ID}, null, null, null);
         if (c != null) {
