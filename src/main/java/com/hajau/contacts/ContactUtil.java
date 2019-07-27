@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -64,6 +65,10 @@ public class ContactUtil {
             try {
                 if (cur.moveToFirst()) {
                     do {
+                        Log.i("NNNNNN", cur.getString(cur.getColumnIndex(
+                                ContactsContract.PhoneLookup.DISPLAY_NAME)) + '/' + cur.getString(cur.getColumnIndex(
+                                ContactsContract.PhoneLookup.NUMBER)));
+
                         if (cur.getString(cur.getColumnIndex(
                                 ContactsContract.PhoneLookup.DISPLAY_NAME)).equalsIgnoreCase(
                                 name) && cur.getString(cur.getColumnIndex(
@@ -73,8 +78,7 @@ public class ContactUtil {
                                     cur.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
                             Uri uri = Uri.withAppendedPath(
                                     ContactsContract.Contacts.CONTENT_LOOKUP_URI, lookupKey);
-
-                            ctx.getContentResolver().delete(contactUri, null, null);
+                            ctx.getContentResolver().delete(uri, null, null);
                             return true;
                         }
 
