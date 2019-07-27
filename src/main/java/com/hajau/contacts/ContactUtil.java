@@ -2,6 +2,7 @@ package com.hajau.contacts;
 
 import android.Manifest;
 import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 
 public class ContactUtil {
     public static final String TAG = "ContactUtil";
-
     public static void addContact(Context context, String name, String phone) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_CONTACTS)
                 == PackageManager.PERMISSION_DENIED) {
@@ -49,15 +49,14 @@ public class ContactUtil {
         try {
             context.getContentResolver().applyBatch(
                     ContactsContract.AUTHORITY, ops);
-            Toast.makeText(context, "Đã lưu lại số điện thoại của " + name,
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Đã lưu lại số điện thoại của " + name, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(context, "Lỗi: Không thể lưu lại số này.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    static boolean deleteContact(Context ctx, String name, String phone) {
+    public static boolean deleteContact(Context ctx, String name, String phone) {
         Uri contactUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phone));
         Cursor cur = ctx.getContentResolver().query(contactUri, null, null, null, null);
         try {
